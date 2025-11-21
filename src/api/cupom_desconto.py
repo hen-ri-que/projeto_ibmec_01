@@ -2,7 +2,7 @@
 # Aplicar ao preço do produto para obter o valor final
 # Exemplo: "PROMO10": 0.90 aplica 10% de desconto (valor final = preço * 0.90)
 
-from data.schemas import CupomInput
+from ..data.schemas import CupomInput
 
 
 class CupomDesconto:

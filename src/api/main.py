@@ -81,5 +81,6 @@ def aplicar_desconto(produto_id: int, cupom: CupomInput):
         "preco_final": produto["preco"]
     }
 
-if __name__ == "__main__":
-    uvicorn.run('src.api.main:app', host="127.0.0.1", port=8000, reload=True)
+# Problemas com a importação relativaquando executa o script diretamente
+# if __name__ == "__main__":
+#     uvicorn.run('src.api.main:app', host="127.0.0.1", port=8000, reload=True)
