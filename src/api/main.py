@@ -23,14 +23,23 @@ produtos_db = [
 # Endpoints
 @app.get("/")
 def home():
+    """
+    Endpoint raiz - mensagem de boas-vindas
+    """
     return {"mensagem": "Bem-vindo à API de Produtos"}
 
 @app.get("/produtos")
 def listar_produtos():
+    """
+    Lista todos os produtos.
+    """
     return {"produtos": produtos_db}
 
 @app.get("/produtos/{produto_id}")
 def consultar_produto(produto_id: int):
+    """
+    Retorna um determinado produto pelo ID.
+    """
     produto = next((p for p in produtos_db if p["id"] == produto_id), None)
     if not produto:
         raise HTTPException(status_code=404, detail="Produto não encontrado")
@@ -38,6 +47,9 @@ def consultar_produto(produto_id: int):
 
 @app.post("/produtos/{produto_id}/desconto")
 def aplicar_desconto(produto_id: int, desconto: DescontoRequest):
+    """
+    Calcular o desconto de um produto através do cupom informado.
+    """
     produto = next((p for p in produtos_db if p["id"] == produto_id), None)
     if not produto:
         raise HTTPException(status_code=404, detail="Produto não encontrado")
