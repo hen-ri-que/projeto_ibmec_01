@@ -11,6 +11,13 @@ class ProdutoInput(BaseModel):
     """    
     nome: str = Field(..., min_length=1, max_length=256, description="Nome do produto")
     preco: float = Field(..., ge=0.01, le=99999.99, description="Preço do produto")
+    class Config:
+        json_schema_extra  = {
+            "example": {
+                "nome": "Monitor Gamer",
+                "preco": 199.99
+            }
+        }
 
 class ProdutoOutput(BaseModel):
     """
@@ -22,3 +29,9 @@ class ProdutoOutput(BaseModel):
 
 class CupomInput(BaseModel):
     cupom: str = Field(..., min_length=1, max_length=50, description="Código do cupom de desconto")
+    class Config:
+        json_schema_extra  = {
+            "example": {
+                "cupom": "PROMO10",               
+            }
+        }

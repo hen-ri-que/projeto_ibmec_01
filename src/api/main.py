@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import uvicorn
+
+from ..config import API_VERSION, API_TITLE, API_DESCRIPTION
 
 from ..data.schemas import CupomInput, ProdutoOutput
 from .cupom_desconto import CupomDesconto
@@ -28,7 +29,7 @@ def home():
     """
     Endpoint raiz - mensagem de boas-vindas
     """
-    return {"mensagem": "Bem-vindo à API de Produtos"}
+    return {"mensagem": f"Bem-vindo à {API_TITLE}"}
 
 @app.get("/health")
 def health_check():
@@ -37,7 +38,7 @@ def health_check():
     """
     return {
         "status": "healthy",
-        "version": "1.0.0"
+        "version": API_VERSION
     }
 
 @app.get("/produtos")

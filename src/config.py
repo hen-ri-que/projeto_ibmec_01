@@ -17,6 +17,6 @@ DATA_DIR = SRC_DIR / "data"              # onde está o schemas.py
 MODELS_DIR = ARTIFACTS_DIR / "models"    # modelos treinados / artefatos
 
 # API
-API_TITLE = "API_VALDESC_CUPOM"          # corrigi o typo AOU_TITLE
+API_TITLE = "API de produtos e descontos"          # corrigi o typo AOU_TITLE
 API_VERSION = "1.0.0"
 API_DESCRIPTION = "API para validar cupons de desconto"
