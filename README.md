@@ -10,21 +10,27 @@ Foi inserida uma classe CupomDesconto para gerenciar e validar os cupons informa
 
 Para instalar o repositório:
 
-1)  Clona o repositório
+1)  Clone o repositório
+
     git clone https://github.com/hen-ri-que/projeto_ibmec_01.git
 
 2)  Instala o ambiente virtual
+
     python -m venv venv 
 
 3) Ativa o ambiente virtual (windows)
+
    ./venv/Script/activate
 
 4) Atualiza o pip
+   
     python -m pip install pip --upgrade
 
-5)  Instala as dependências de requirements.txt
+6)  Instala as dependências de requirements.txt
+   
     pip install -r requirements.txt
 
-6) Rode a aplicação com uvicorn ou execute 
+8) Rode a aplicação com uvicorn ou execute
+   
     uvicorn src.api.main:app --reload  
     
