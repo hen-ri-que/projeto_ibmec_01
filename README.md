@@ -2,7 +2,7 @@
 Projeto para Avaliação da Disciplina de Engenharia de Software, Prof. Luis Fernando Lufe Mello Barreto - MBA/IBMEC
 Estudantes: Henrique Pimentel, Felipe Gouveia, Rodrigo Barros, Suellyn Schopping
 
-Trata-se de uma aplicação tipo FastAPI para listar produtos por um detemrinado ID e validar cupons de desconto.
+Trata-se de uma aplicação backend utilizando FastAPI para listar produtos por um detemrinado ID e validar cupons de desconto.
 
 Os produtos estão definidos em uma variável em src/api/main.py. Em um caso real seria necessário a conexão com banco de dados.
 
@@ -77,6 +77,4 @@ Para instalar o repositório:
 Observações: 
 1. Esse projeto é apenas um exemplo acadêmico; em um cenário real, a fonte de dados de produtos e cupons seria um banco de dados ou outro serviço externo.
 
-2. Para o endpoint de cálculo de desconto, usamos pytest.approx na comparação do campo desconto_percentual, pois o cálculo em ponto flutuante retornava 9.999999999999998 em vez de 10.0. Essa é uma imprecisão numérica comum em operações com float em Python, e o uso de approx garante que o teste verifique o valor esperado dentro de uma tolerância adequada.
-
-3. Para interromper a API, pressione CTRL + C no terminal onde o uvicorn está sendo executado.
+2. Para interromper a API, pressione CTRL + C no terminal onde o uvicorn está sendo executado.

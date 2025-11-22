@@ -89,17 +89,17 @@ def consultar_produto(produto_id: int):
         raise HTTPException(status_code=404, detail="Produto não encontrado")
     return produto
 
-@app.post("/produtos/{produto_id}/calcular_desconto", response_model=dict) 
-def aplicar_desconto(produto_id: int, cupom: CupomInput):
+@app.post("/calcular_desconto",   response_model=dict) 
+def calcular_desconto(cupom_input: CupomInput):
     """
     Calcular o desconto de um produto através do cupom informado.
     """
     logger.info("Requisição recebida no endpoint aplicar_desconto")
-    produto = next((p for p in produtos_db if p["id"] == produto_id), None)
+    produto = next((p for p in produtos_db if p["id"] == cupom_input.id), None)
     if not produto:
         raise HTTPException(status_code=404, detail="Produto não encontrado")
     
-    cupom_desconto = CupomDesconto(cupom.cupom)
+    cupom_desconto = CupomDesconto(cupom_input.cupom)
 
     if not cupom_desconto.is_valid:
         raise HTTPException(status_code=400, detail="Cupom inválido")
@@ -110,10 +110,9 @@ def aplicar_desconto(produto_id: int, cupom: CupomInput):
         "id": produto["id"],
         "nome": produto["nome"],
         "preco_original": preco_original,
-        "desconto_percentual":  (1 - cupom_desconto.fator_desconto) * 100,
+        "desconto_percentual": round((1 - cupom_desconto.fator_desconto) * 100, 2),
         "preco_final": produto["preco"]
     }
-
 # Problemas com a importação relativaquando executa o script diretamente
 # if __name__ == "__main__":
 #     uvicorn.run('src.api.main:app', host="127.0.0.1", port=8000, reload=True)

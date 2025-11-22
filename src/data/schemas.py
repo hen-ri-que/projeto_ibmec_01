@@ -28,10 +28,12 @@ class ProdutoOutput(BaseModel):
     preco: float 
 
 class CupomInput(BaseModel):
+    id: int = Field(..., description="Id do produto")
     cupom: str = Field(..., min_length=1, max_length=50, description="Código do cupom de desconto")
     class Config:
         json_schema_extra  = {
             "example": {
+                "id": 1,
                 "cupom": "PROMO10",               
             }
         }

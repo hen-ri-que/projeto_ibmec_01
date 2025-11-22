@@ -1,20 +1,20 @@
 """
 Testes para a API de produtos e descontos.
 """
-import pytest
 from fastapi.testclient import TestClient
 from src.api.main import app
 from src.config import API_VERSION
+from src.config import API_TITLE
 
 # Cria um cliente de teste para a aplicação FastAPI
 client = TestClient(app)
 
 
 def test_home():
-    """Testa o endpoint raiz '/'."""
+    """Testa o endpoint raiz '/' e a mensagem de boas-vindas."""
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"mensagem": "Bem-vindo à API de produtos e descontos"}
+    assert response.json() == {"mensagem": f"Bem-vindo à {API_TITLE}"}
 
 
 def test_health_check():
@@ -54,23 +54,23 @@ def test_consultar_produto_inexistente():
 def test_aplicar_desconto_valido():
     """Testa a aplicação de um cupom de desconto válido."""
     response = client.post(
-        "/produtos/1/calcular_desconto",
-        json={"cupom": "PROMO10"}
+        "/calcular_desconto",
+        json={"id": 1, "cupom": "PROMO10"}
     )
     assert response.status_code == 200
     data = response.json()
     assert data["id"] == 1
     assert data["nome"] == "Notebook"
     assert data["preco_original"] == 3000.00
-    assert data["desconto_percentual"] == pytest.approx(10.0)
-    assert data["preco_final"] == 2700.00
+    assert data["desconto_percentual"] == 10.0 ##pytest.approx(10.0)
+    assert data["preco_final"] == 2700.0
 
 
 def test_aplicar_desconto_invalido():
     """Testa a aplicação de um cupom de desconto inválido."""
     response = client.post(
-        "/produtos/2/calcular_desconto",
-        json={"cupom": "INVALIDO"}
+        "/calcular_desconto",
+        json={"id": 2, "cupom": "INVALIDO"}
     )
     assert response.status_code == 400
     assert response.json() == {"detail": "Cupom inválido"}
@@ -79,8 +79,8 @@ def test_aplicar_desconto_invalido():
 def test_aplicar_desconto_produto_inexistente():
     """Testa a aplicação de desconto em um produto que não existe."""
     response = client.post(
-        "/produtos/99/calcular_desconto",
-        json={"cupom": "PROMO10"}
+        "/calcular_desconto",
+        json={"id": 99, "cupom": "PROMO10"}
     )
     assert response.status_code == 404
     assert response.json() == {"detail": "Produto não encontrado"}
@@ -89,8 +89,8 @@ def test_aplicar_desconto_produto_inexistente():
 def test_aplicar_desconto_cupom_vazio():
     """Testa a aplicação de um cupom vazio (deve falhar na validação do Pydantic)."""
     response = client.post(
-        "/produtos/1/calcular_desconto",
-        json={"cupom": ""}
+        "/calcular_desconto",
+        json={"id": 1, "cupom": ""}
     )
     # O FastAPI retorna 422 para erros de validação de entrada
     assert response.status_code == 422
@@ -99,7 +99,7 @@ def test_aplicar_desconto_cupom_vazio():
 def test_aplicar_desconto_payload_invalido():
     """Testa o endpoint de desconto com um payload malformado."""
     response = client.post(
-        "/produtos/1/calcular_desconto",
-        json={"codigo_cupom": "PROMO10"}  # Chave errada
+        "/calcular_desconto",
+        json={"id": 1, "codigo_cupom": "PROMO10"}  # Chave 'codigo_cupom' errada
     )
     assert response.status_code == 422
