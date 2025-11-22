@@ -1,6 +1,16 @@
 # projeto_ibmec_01
+
+
 Projeto para Avaliação da Disciplina de Engenharia de Software, Prof. Luis Fernando Lufe Mello Barreto - MBA/IBMEC
-Estudantes: Henrique Pimentel, Felipe Gouveia, Rodrigo Barros, Suellyn Schopping
+Estudantes: 
+    Felipe Gouveia, 
+    Henrique Pimentel,     
+    Rodrigo Barros, 
+    Suellyn Schopping
+
+Link do projeto:
+
+https://github.com/hen-ri-que/projeto_ibmec_01
 
 Trata-se de uma aplicação backend utilizando FastAPI para listar produtos por um detemrinado ID e validar cupons de desconto.
 
